@@ -86,7 +86,7 @@
           {/each}
         </ul>
       </div>
-      <button type="button" class="bg-neutral-200 border flex p-1 text-neutral-700">
+      <button type="button" class="hidden bg-neutral-200 border flex p-1 text-neutral-700">
         <span class="h-6 w-6">
           <MdApps />
         </span>

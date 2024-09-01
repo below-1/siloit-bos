@@ -7,6 +7,8 @@
   import ApexCharts from "apexcharts";
 
   const menus = getMenus();
+  let menuOpen = $state(false);
+  const pageTitle = "Data Saya";
 
   $effect(() => {
     if (browser) {
@@ -77,16 +79,26 @@
   });
 </script>
 
-<PageBar title="Data Saya">
+<svelte:head>
+  <title>SI-LOIT BOS - {pageTitle}</title>
+  <meta name="description" content={pageTitle} />
+</svelte:head>
+
+<PageBar
+  title={pageTitle}
+  ontogglemenu={() => {
+    menuOpen = !menuOpen;
+  }}
+>
   <Breadcrumbs
     components={[
-      { label: "Halaman Awal", path: "/app/home", separator: false },
+      { label: "Halaman Awal", path: "/", separator: false },
       { separator: true },
       { label: "Data Saya", path: "/app/home", separator: false },
     ]}
   />
 </PageBar>
 
-<AppLayout {menus}>
+<AppLayout {menus} showMenus={menuOpen}>
   <div id="chart_container"></div>
 </AppLayout>

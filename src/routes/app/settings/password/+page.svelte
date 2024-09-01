@@ -4,21 +4,34 @@
   import { FOCUSABLE_LINK_CLASSES } from "$lib/components/field-style";
   import PageBar from "$lib/components/page-bar.svelte";
   import TextField from "$lib/components/text-field.svelte";
-  import { getSettingsMenus } from "$lib/menus";
+  import { getMenus } from "$lib/menus";
   import DataTable from "datatables.net-dt";
   import "datatables.net-dt/css/dataTables.dataTables.css";
 
   let { data } = $props();
-  const menus = getSettingsMenus(1);
+  const menus = getMenus();
   /** @type {any} */
   let tableRef = $state(null);
+  const pageTitle = "Password";
+  let menuOpen = $state(false);
 
   $effect(() => {
     tableRef = new DataTable("#arkas_table", {});
   });
 </script>
 
-<PageBar title="Pengaturan / Password" activeSettingMenu={0}>
+<svelte:head>
+  <title>SI-LOIT BOS - {pageTitle}</title>
+  <meta name="description" content={pageTitle} />
+</svelte:head>
+
+<PageBar
+  title="Pengaturan / Password"
+  activeSettingMenu={1}
+  ontogglemenu={() => {
+    menuOpen = !menuOpen;
+  }}
+>
   <Breadcrumbs
     components={[
       { label: "Halaman Awal", path: "/", separator: false },
@@ -34,8 +47,8 @@
   />
 </PageBar>
 
-<AppLayout {menus}>
-  <form method="post" class="w-2/3">
+<AppLayout {menus} showMenus={menuOpen} activeSettingMenu={1}>
+  <form method="post" class="w-full md:w-2/3">
     <TextField
       name="old_password"
       label="Password Lama"

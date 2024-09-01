@@ -10,7 +10,7 @@
 
   let { data } = $props();
   const menus = getMenus(0);
-  const pageTitle = "Upload Arkas";
+  const pageTitle = "Upload Naskah Hibah";
   /** @type {any} */
   let tableRef = $state(null);
   let menuOpen = $state(false);
@@ -37,9 +37,9 @@
       { separator: true },
       { label: "Data Saya", path: "/app/home", separator: false },
       { separator: true },
-      { label: "Kumpulan Arkas", path: "/app/arkas", separator: false },
+      { label: "Naskah Hibah", path: "/app/naskah-hibah", separator: false },
       { separator: true },
-      { label: "Upload", path: "/app/arkas/upload", separator: false },
+      { label: "Upload", path: "/app/naskah-hibah/upload", separator: false },
     ]}
   />
 </PageBar>
@@ -51,7 +51,7 @@
     <button
       type="submit"
       class={`${FOCUSABLE_LINK_CLASSES} bg-primary-700 text-white rounded-lg overflow-hidden uppercase px-6 py-2 font-bold text-lg ring-4 ring-secondary-500`}
-      >Upload Arkas</button
+      >Upload Naskah Hibah</button
     >
   </form>
 </AppLayout>

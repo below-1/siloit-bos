@@ -20,6 +20,7 @@
 
   let { data } = $props();
   const menus = getMenus(0);
+  const pageTitle = "Kumpulan Arkas";
   /** @type {any} */
   let tableRef = $state(null);
   let menuOpen = $state(false);
@@ -31,15 +32,20 @@
   });
 </script>
 
+<svelte:head>
+  <title>SI-LOIT BOS - {pageTitle}</title>
+  <meta name="description" content={pageTitle} />
+</svelte:head>
+
 <PageBar
-  title="Kumpulan Arkas"
+  title={pageTitle}
   ontogglemenu={() => {
     menuOpen = !menuOpen;
   }}
 >
   <Breadcrumbs
     components={[
-      { label: "Halaman Awal", path: "/app/home", separator: false },
+      { label: "Halaman Awal", path: "/", separator: false },
       { separator: true },
       { label: "Data Saya", path: "/app/home", separator: false },
       { separator: true },

@@ -10,6 +10,8 @@
 
   let { data } = $props();
   const menus = getMenus(2);
+  let menuOpen = $state(false);
+  const pageTitle = "Upload SPJ Online BOS";
   /** @type {any} */
   let tableRef = $state(null);
 
@@ -18,7 +20,12 @@
   });
 </script>
 
-<PageBar title="Upload SPJ Online BOS">
+<PageBar
+  title={pageTitle}
+  ontogglemenu={() => {
+    menuOpen = !menuOpen;
+  }}
+>
   <Breadcrumbs
     components={[
       { label: "Halaman Awal", path: "/app/home", separator: false },
@@ -32,8 +39,8 @@
   />
 </PageBar>
 
-<AppLayout {menus}>
-  <form method="post" class="w-2/3">
+<AppLayout {menus} showMenus={menuOpen}>
+  <form method="post" class="w-full md:w-2/3">
     <TextField name="tahun" label="Tahun" type="number" class="mb-4" />
     <TextField name="file" label="File" type="file" class="mb-6" />
     <button

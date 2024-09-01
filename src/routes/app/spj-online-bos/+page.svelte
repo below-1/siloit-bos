@@ -14,20 +14,33 @@
   import { getMenus } from "$lib/menus";
   import DataTable from "datatables.net-dt";
   import "datatables.net-dt/css/dataTables.dataTables.css";
+  import "datatables.net-responsive";
   import FaDownload from "svelte-icons/fa/FaDownload.svelte";
   import { twMerge } from "tailwind-merge";
 
   let { data } = $props();
   const menus = getMenus(2);
+  const pageTitle = "SPJ Online BOS";
   /** @type {any} */
   let tableRef = $state(null);
+  let menuOpen = $state(false);
 
   $effect(() => {
-    tableRef = new DataTable("#arkas_table", {});
+    tableRef = new DataTable("#arkas_table", { responsive: true });
   });
 </script>
 
-<PageBar title="SPJ Online BOS">
+<svelte:head>
+  <title>SI-LOIT BOS - {pageTitle}</title>
+  <meta name="description" content={pageTitle} />
+</svelte:head>
+
+<PageBar
+  title={pageTitle}
+  ontogglemenu={() => {
+    menuOpen = !menuOpen;
+  }}
+>
   <Breadcrumbs
     components={[
       { label: "Halaman Awal", path: "/app/home", separator: false },
@@ -35,7 +48,7 @@
       { label: "Data Saya", path: "/app/home", separator: false },
       { separator: true },
       {
-        label: "SPJ Online BOS",
+        label: pageTitle,
         path: "/app/spj-online-bos",
         separator: false,
       },
@@ -43,7 +56,7 @@
   />
 </PageBar>
 
-<AppLayout {menus}>
+<AppLayout {menus} showMenus={menuOpen}>
   <div class="flex flex-col items-center justify-center mb-12">
     <a
       href="/app/spj-online-bos/upload"

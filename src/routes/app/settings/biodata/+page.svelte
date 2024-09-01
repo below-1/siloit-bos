@@ -4,21 +4,34 @@
   import { FOCUSABLE_LINK_CLASSES } from "$lib/components/field-style";
   import PageBar from "$lib/components/page-bar.svelte";
   import TextField from "$lib/components/text-field.svelte";
-  import { getSettingsMenus } from "$lib/menus";
+  import { getMenus } from "$lib/menus";
   import DataTable from "datatables.net-dt";
   import "datatables.net-dt/css/dataTables.dataTables.css";
 
   let { data } = $props();
-  const menus = getSettingsMenus(0);
+  const menus = getMenus();
   /** @type {any} */
   let tableRef = $state(null);
+  const pageTitle = "Biodata";
+  let menuOpen = $state(false);
 
   $effect(() => {
     tableRef = new DataTable("#arkas_table", {});
   });
 </script>
 
-<PageBar title="Pengaturan / Biodata" activeSettingMenu={0}>
+<svelte:head>
+  <title>SI-LOIT BOS - {pageTitle}</title>
+  <meta name="description" content={pageTitle} />
+</svelte:head>
+
+<PageBar
+  title="Pengaturan / Biodata"
+  activeSettingMenu={0}
+  ontogglemenu={() => {
+    menuOpen = !menuOpen;
+  }}
+>
   <Breadcrumbs
     components={[
       { label: "Halaman Awal", path: "/", separator: false },
@@ -30,8 +43,8 @@
   />
 </PageBar>
 
-<AppLayout {menus}>
-  <form method="post" class="w-2/3">
+<AppLayout {menus} showMenus={menuOpen} activeSettingMenu={0}>
+  <form method="post" class="w-full md:w-2/3">
     <TextField name="npsn" label="NPSN" type="text" class="mb-4" />
     <TextField name="nama" label="Nama Sekolah" type="text" class="mb-4" />
     <TextField name="kategori" label="Kategori" type="text" class="mb-6" />

@@ -12,13 +12,25 @@
   const menus = getMenus(3);
   /** @type {any} */
   let tableRef = $state(null);
+  let menuOpen = $state(false);
+  const pageTitle = "Verifikasi BOS";
 
   $effect(() => {
     tableRef = new DataTable("#arkas_table", {});
   });
 </script>
 
-<PageBar title="Verifikasi BOS">
+<svelte:head>
+  <title>SI-LOIT BOS - {pageTitle}</title>
+  <meta name="description" content={pageTitle} />
+</svelte:head>
+
+<PageBar
+  title="Verifikasi BOS"
+  ontogglemenu={() => {
+    menuOpen = !menuOpen;
+  }}
+>
   <Breadcrumbs
     components={[
       { label: "Halaman Awal", path: "/app/home", separator: false },
@@ -34,21 +46,21 @@
   />
 </PageBar>
 
-<AppLayout {menus}>
+<AppLayout {menus} showMenus={menuOpen}>
   <div
-    class="flex flex-col items-center justify-center mb-12 bg-neutral-200 py-24"
+    class="flex flex-col items-center justify-center mb-12 bg-neutral-200 py-24 px-4 md:px-0"
   >
-    <div class="w-32 h-32 text-green-600 self-center mb-8">
+    <div class="w-16 h-16 md:w-32 md:h-32 text-green-600 self-center mb-8">
       <FaCheckCircle />
     </div>
     <p
-      class="w-2/3 mx-auto text-4xl text-neutral-600 text-center font-bold mb-12"
+      class="w-full md:w-2/3 mx-auto text-2xl md:text-4xl text-neutral-600 text-center font-bold mb-12"
     >
       Data sekolah SMAN 1 Citra Bangsa berhasil Diverfikasi oleh operator
     </p>
     <a
       href="/app/rekomendasi-pencairan"
-      class={`${FOCUSABLE_LINK_CLASSES} bg-primary-700 text-white rounded-lg overflow-hidden uppercase px-6 py-2 font-bold text-lg ring-4 ring-secondary-500`}
+      class={`${FOCUSABLE_LINK_CLASSES} bg-primary-700 text-white rounded-lg overflow-hidden uppercase px-6 py-2 font-bold text-sm md:text-lg ring-4 ring-secondary-500`}
       >Lanjutkan ke Rekomendasi Pencairan</a
     >
   </div>
